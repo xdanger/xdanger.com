@@ -211,7 +211,8 @@ hr {
 /* ============================================================
    FRAME + GUIDE LINES
    ============================================================ */
-/* continuous dotted verticals spanning the full viewport height */
+/* continuous dotted verticals spanning the full viewport height, drawn above
+   the solid content plate so the vertical frame stays visible */
 .guides {
   position: fixed;
   inset: 0;
@@ -219,7 +220,7 @@ hr {
   max-width: var(--shell);
   width: 100%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
 }
 .guides::before,
 .guides::after {
@@ -237,14 +238,15 @@ hr {
   right: var(--pad-x);
 }
 
-/* content plate; transparent so the fixed dotted guides + faint graph-paper
-   grid read through behind the (higher z-index) text */
+/* solid paper plate so the graph-paper grid only shows in the outer margins;
+   the fixed dotted guides (higher z-index) frame its content-column edges */
 .shell {
   position: relative;
   z-index: 1;
   max-width: var(--shell);
   margin-inline: auto;
   padding-inline: var(--pad-x);
+  background: var(--paper);
 }
 @media (max-width: 720px) {
   .guides::before {
