@@ -82,13 +82,13 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 <link href="/notes/rss.xml" title="Notes" rel="alternate" type="application/rss+xml" />
 
 {/* Fonts */}
-<!-- <Font cssVariable="--font-ia-writer-duo" preload /> -->
+{/* UI / chrome — monospace */}
 <Font cssVariable="--font-ia-writer-mono" preload />
-{/* Latin serif for prose body text; CJK falls through to LXGW WenKai Lite */}
+{/* Body / prose — sans (Latin); CJK falls through to the system sans stack */}
+<Font cssVariable="--font-geist" preload />
+{/* Display headlines — serif (Latin); CJK display uses LXGW WenKai Lite */}
 <Font cssVariable="--font-newsreader" />
-<!-- <Font cssVariable="--font-geist" preload />
-<Font cssVariable="--font-geist-mono" preload /> -->
-{/* LXGW WenKai Lite (CJK serif) served from jsDelivr; family: "LXGW WenKai Lite" */}
+{/* LXGW WenKai Lite (CJK display) served from jsDelivr; family: "LXGW WenKai Lite" */}
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link
   rel="stylesheet"
