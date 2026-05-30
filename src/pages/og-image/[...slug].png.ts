@@ -125,7 +125,7 @@ function getCacheFile(slug: string, title: string, postDate: string) {
 async function readCachedPng(cacheFile: string) {
   try {
     const png = await readFile(cacheFile);
-    return isPng(png) ? png : undefined;
+    return isCompletePng(png) ? png : undefined;
   } catch {
     return undefined;
   }
@@ -150,18 +150,47 @@ function imageResponse(png: Uint8Array) {
   });
 }
 
-function isPng(png: Uint8Array) {
-  return (
-    png.length >= 8 &&
-    png[0] === 0x89 &&
-    png[1] === 0x50 &&
-    png[2] === 0x4e &&
-    png[3] === 0x47 &&
-    png[4] === 0x0d &&
-    png[5] === 0x0a &&
-    png[6] === 0x1a &&
-    png[7] === 0x0a
-  );
+function isCompletePng(png: Uint8Array) {
+  if (
+    png.length < 12 ||
+    png[0] !== 0x89 ||
+    png[1] !== 0x50 ||
+    png[2] !== 0x4e ||
+    png[3] !== 0x47 ||
+    png[4] !== 0x0d ||
+    png[5] !== 0x0a ||
+    png[6] !== 0x1a ||
+    png[7] !== 0x0a
+  ) {
+    return false;
+  }
+
+  const view = new DataView(png.buffer, png.byteOffset, png.byteLength);
+  let offset = 8;
+
+  while (offset + 12 <= png.length) {
+    const chunkLength = view.getUint32(offset);
+    const chunkTypeOffset = offset + 4;
+    const chunkEnd = offset + 12 + chunkLength;
+
+    if (chunkEnd > png.length) {
+      return false;
+    }
+
+    const isIend =
+      png[chunkTypeOffset] === 0x49 &&
+      png[chunkTypeOffset + 1] === 0x45 &&
+      png[chunkTypeOffset + 2] === 0x4e &&
+      png[chunkTypeOffset + 3] === 0x44;
+
+    if (isIend) {
+      return chunkEnd === png.length;
+    }
+
+    offset = chunkEnd;
+  }
+
+  return false;
 }
 
 export async function getStaticPaths() {
