@@ -282,7 +282,8 @@
   --font-alias-plexSerif: "Newsreader Variable", "LXGW WenKai", "LXGW WenKai Lite",
     ui-serif, Georgia, "Times New Roman", serif;
   --font-alias-plexSans: "iA Writer Quattro", ui-sans-serif, system-ui, sans-serif;
-  --font-alias-writer: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-alias-writer: "Inter Variable", "LXGW WenKai Lite", ui-sans-serif, system-ui,
+    sans-serif;
   --font-alias-plexMono: "iA Writer Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
     Consolas, "Liberation Mono", "Courier New", monospace;
   --font-plex-serif: var(--font-alias-plexSerif);
