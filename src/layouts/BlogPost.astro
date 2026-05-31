@@ -1,7 +1,12 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import Masthead from "@/components/blog/Masthead.astro";
 import WebMentions from "@/components/blog/webmentions/index.astro";
 import BaseLayout from "./Base.astro";
+
+interface Props {
+  post: CollectionEntry<"post">;
+}
 
 const { post } = Astro.props;
 const { ogImage, title, description, updatedDate, publishDate } = post.data;
@@ -12,7 +17,7 @@ const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
 <BaseLayout meta={{ articleDate, description, ogImage: socialImage, title, post }}>
   <section class="page-section pt-0">
     <div id="blog-hero" class="page-shell">
-      <Masthead content={post} />
+      <Masthead post={post} />
     </div>
   </section>
   <article class="flex-colgrow flex break-words" data-pagefind-body>
