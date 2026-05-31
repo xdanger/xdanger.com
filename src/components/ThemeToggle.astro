@@ -23,6 +23,13 @@ import { Icon } from "astro-icon/components";
       const button = this.querySelector<HTMLButtonElement>("button");
 
       if (button) {
+        const replayIcon = () => {
+          const icon = button.querySelector("svg");
+          if (!icon) return;
+
+          icon.replaceWith(icon.cloneNode(true));
+        };
+
         const setLabel = () => {
           button.setAttribute(
             "aria-label",
@@ -44,6 +51,7 @@ import { Icon } from "astro-icon/components";
             },
           });
           document.dispatchEvent(themeChangeEvent);
+          replayIcon();
         });
       } else {
         console.warn("Theme Toggle: No button found");
