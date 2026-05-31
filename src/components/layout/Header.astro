@@ -12,7 +12,7 @@ import { siteConfig } from "@/site.config";
     class="bg-background/95 supports-[backdrop-filter]:bg-background/60 [[data-collapsed=true]_&]:border-foreground/10 pointer-events-auto w-full border-b-0 border-dotted border-transparent backdrop-blur-sm transition-colors [[data-collapsed=true]_&]:border-b"
   >
     <div class="page-shell relative z-10 flex items-start justify-between gap-4 py-3 sm:py-4">
-      <nav aria-label="Primary">
+      <div>
         <p class="text-accent-2 font-plex-serif text-xl leading-none font-semibold sm:text-2xl">
           <a href="/" data-astro-prefetch>{siteConfig.author}</a>
         </p>
@@ -21,7 +21,7 @@ import { siteConfig } from "@/site.config";
         >
           Notes on tech, products, and life.
         </p>
-      </nav>
+      </div>
       <ThemeToggle />
     </div>
   </div>

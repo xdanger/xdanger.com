@@ -13,6 +13,8 @@
   import { rootInDarkMode } from "@/utils/domElement";
 
   class ThemeToggle extends HTMLElement {
+    private themeObserver?: MutationObserver;
+
     constructor() {
       super();
       const button = this.querySelector<HTMLButtonElement>("button");
@@ -24,10 +26,10 @@
             rootInDarkMode() ? "Switch to light theme" : "Switch to dark theme",
           );
         };
-        const themeObserver = new MutationObserver(setLabel);
 
         setLabel();
-        themeObserver.observe(document.documentElement, {
+        this.themeObserver = new MutationObserver(setLabel);
+        this.themeObserver.observe(document.documentElement, {
           attributeFilter: ["data-theme"],
           attributes: true,
         });
@@ -39,11 +41,14 @@
             },
           });
           document.dispatchEvent(themeChangeEvent);
-          setLabel();
         });
       } else {
         console.warn("Theme Toggle: No button found");
       }
+    }
+
+    disconnectedCallback() {
+      this.themeObserver?.disconnect();
     }
   }
 
